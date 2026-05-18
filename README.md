@@ -7,6 +7,7 @@ A modern customer support system powered by **Spring Boot**, **Spring AI**, and 
 ![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.0--M2-orange.svg)
 ![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-purple.svg)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/pacman-cli/AI-Customer-Support?utm_source=badge)
 
 ## ✨ Features
 

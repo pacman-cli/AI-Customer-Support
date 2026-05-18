@@ -15,12 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: "21"
           distribution: "temurin"
+
+      - name: Build CodSpeed JMH fork
+        run: cd third-party/codspeed-jvm/jmh-fork && mvn clean install -DskipTests -q
 
       - name: Build benchmarks
         run: mvn clean verify -q -f benchmarks/pom.xml

@@ -1,0 +1,41 @@
+name: CodSpeed Benchmarks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  benchmarks:
+    name: Run benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Publish CodSpeed JMH fork to local Maven
+        working-directory: third-party/codspeed-jvm
+        run: ./gradlew -p jmh-fork publishToMavenLocal -q
+
+      - name: Build benchmarks
+        working-directory: benchmarks
+        run: mvn clean package -q
+
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v4
+        with:
+          mode: walltime
+          run: java -jar benchmarks/target/benchmarks.jar
